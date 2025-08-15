@@ -1,0 +1,32 @@
+@import 'normalize.css';
+@import 'global-variables.css';
+
+html,
+body {
+  font-size: var(--font-size-base);
+  height: 100%;
+  color: var(--gray-01);
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-base);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  line-height: var(--line-height-base);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+p {
+  white-space: pre-wrap;
+}

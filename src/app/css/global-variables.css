@@ -1,0 +1,16 @@
+:root {
+  --font-family-base: Roboto, sans-serif;
+  --font-weight-base: 400;
+  --font-weight-medium: 500;
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-lg: 16px;
+  --line-height-base: 1.25rem;
+  --line-height-sm: 0.5rem;
+  --line-height-lg: 1.5rem;
+  --border-radius-base: 10px;
+  --white: #ffffff;
+  --black: #000000;
+  --gray-01: #767778;
+  --gray-02: #1b243f;
+}
