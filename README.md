@@ -18,4 +18,4 @@ bun dev
 
 0. Setup a next.js project (never really used next js, not convinced about all those script tags though)
 1. Think of existing flows and sketch idea on paper
-2. Fetch api data
+2. Fetch api data (hardcoded, check what's best in terms of server component vs client component)
