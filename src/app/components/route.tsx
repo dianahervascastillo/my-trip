@@ -54,7 +54,7 @@ export default function Route({ route }: RouteProps) {
   return (
     <div>
       <h2>Journey Route</h2>
-      <ol>
+      <ol className='route'>
         {route.map((stop, index) => {
           //remove depot stop
           if (!stop.allow_boarding && index === 0) {
