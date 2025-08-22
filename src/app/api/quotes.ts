@@ -14,7 +14,10 @@ export async function getAllQuotes(): Promise<unknown> {
   console.log('2 days later:', futureDate);
 
   const data = await fetch(
-    `https://api.ember.to/v1/quotes/?origin=13&destination=42&departure_date_from=${currentDate}&departure_date_to=${futureDate}`
+    `https://api.ember.to/v1/quotes/?origin=13&destination=42&departure_date_from=${currentDate}&departure_date_to=${futureDate}`,
+    {
+      cache: 'no-store'
+    }
   );
 
   // Failed to fetch
@@ -22,6 +25,7 @@ export async function getAllQuotes(): Promise<unknown> {
     throw new Error('Failed to fetch quotes');
   }
   const { quotes } = await data.json();
+  console.log('quotes', quotes);
 
   return quotes;
 }

@@ -18,4 +18,5 @@ bun dev
 
 0. Setup a next.js project (never really used next js, not convinced about all those script tags though)
 1. Think of existing flows and sketch idea on paper
-2. Fetch api data (hardcoded, check what's best in terms of server component vs client component)
+2. Fetch api data (hardcoded now, check what's best in terms of server component vs client component) Ideally we would like to maybe get a dedicated endpoint where we can get the stream of the geoposition or do the polling from the FE with ssr so we just get the gps info updated if the endpoint allows that. Something that will allow the fe to not re-render everytime the gps position changes basically, and doesn't stress the endpoint.
+3. Displaying basic info of the coach.
