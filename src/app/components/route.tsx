@@ -1,4 +1,4 @@
-import { formatTimeAndDate, TIME_DATE_FORMATS } from '../utils/utils';
+import { formatTime, TIME_DATE_FORMATS } from '../utils/utils';
 
 interface RouteStop {
   id: number;
@@ -24,17 +24,28 @@ interface RouteProps {
   route: RouteStop[];
 }
 
-const StopInfo = ({ stop }) => {
+const StopInfo = ({ stop, isLastStop }) => {
   console.log('stop', stop);
 
+  // wondering why form some stops api does not have actual arrival time, just estimated
   return (
     <li key={stop.id}>
-      <h2>{stop.location.name}</h2>
-      <span>
-        {stop.departure.actual
-          ? `Departed ${formatTimeAndDate(stop.departure.actual, TIME_DATE_FORMATS.SHORT_TIME)}`
-          : `Scheduled ${formatTimeAndDate(stop.departure.scheduled, TIME_DATE_FORMATS.SHORT_TIME)}`}
-      </span>
+      {!isLastStop ? (
+        <span>
+          {stop.departure.actual
+            ? `Departed ${formatTime(stop.departure.actual, TIME_DATE_FORMATS.SHORT_TIME)}`
+            : `Scheduled ${formatTime(stop.departure.scheduled, TIME_DATE_FORMATS.SHORT_TIME)}`}
+        </span>
+      ) : (
+        <span>
+          {stop.arrival.actual
+            ? `Arrived ${formatTime(stop.arrival.actual, TIME_DATE_FORMATS.SHORT_TIME)}`
+            : `Scheduled ${formatTime(stop.arrival.scheduled, TIME_DATE_FORMATS.SHORT_TIME)}`}
+        </span>
+      )}
+
+      <h2>{stop.location.region_name}</h2>
+      <h3>{stop.location.detailed_name}</h3>
     </li>
   );
 };
@@ -45,9 +56,11 @@ export default function Route({ route }: RouteProps) {
       <h2>Journey Route</h2>
       <ol>
         {route.map((stop, index) => {
-          console.log('index', index);
-          console.log('route.length', route.length);
-          return <StopInfo key={stop.id} stop={stop} />;
+          //remove depot stop
+          if (!stop.allow_boarding && index === 0) {
+            return null;
+          }
+          return <StopInfo key={stop.id} stop={stop} isLastStop={index === route.length - 1} />;
 
           // return (
           //   <li key={stop.id}>

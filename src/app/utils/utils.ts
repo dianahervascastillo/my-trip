@@ -15,7 +15,7 @@ type TimeAndDateFormats = {
   [key: string]: DateFormat | TimeFormat;
 };
 
-export const TIME_DATE_FORMATS: DateFormats = {
+export const TIME_DATE_FORMATS: TimeAndDateFormats = {
   SHORT_DAY: {
     weekday: 'short',
     day: '2-digit',
@@ -29,7 +29,7 @@ export const TIME_DATE_FORMATS: DateFormats = {
   }
 };
 
-export function formatTimeAndDate(
+export function formatDate(
   dateStr: string,
   formatOptions: Intl.DateTimeFormatOptions,
   locale: string = 'en-GB'
@@ -39,4 +39,16 @@ export function formatTimeAndDate(
   // pass the format options and the locale
   const formatted = date.toLocaleDateString(locale, formatOptions);
   return formatted.replace(',', '');
+}
+
+export function formatTime(
+  dateStr: string,
+  formatOptions: Intl.DateTimeFormatOptions,
+  locale: string = 'en-GB'
+): string {
+  // transform date to dateString
+  const date = new Date(dateStr);
+  // pass the format options and the locale
+  const formatted = date.toLocaleTimeString(locale, formatOptions);
+  return formatted;
 }

@@ -1,7 +1,11 @@
 import { getAllQuotes } from './api/quotes';
 import { getTripById } from './api/trips';
 import Route from './components/route';
-import { formatTimeAndDate, TIME_DATE_FORMATS } from './utils/utils';
+import { formatDate, TIME_DATE_FORMATS } from './utils/utils';
+import IconWifi from './img/icons/wifi';
+import IconToilet from './img/icons/toilet';
+import IconBike from './img/icons/bike';
+import IconWheelchair from './img/icons/wheelchair';
 
 interface Quote {
   legs: Array<{
@@ -67,7 +71,8 @@ interface TripData {
 export default async function Home() {
   try {
     const quotes = (await getAllQuotes()) as Quote[];
-    const tripId = quotes[0]?.legs?.[0]?.trip_uid;
+    // const tripId = quotes[0]?.legs[0]?.trip_uid;
+    const tripId = '5bpmP6qV9VQCD4GSmXoYz8';
 
     if (!tripId) {
       throw new Error('No valid trip ID found in quotes');
@@ -79,71 +84,49 @@ export default async function Home() {
     const tripData = (await getTripById(tripId)) as TripData;
     const { route, vehicle, description } = tripData;
 
-    const tripOrigin = `${route[0].location.region_name} (${route[0].location.code})`;
-    const tripDestination = `${route[route.length - 1].location.region_name} (${route[route.length - 1].location.code})`;
+    const tripOrigin = `${quotes[0]?.legs[0]?.origin.name}`;
+    const tripDestination = `${quotes[0]?.legs[0]?.destination.region_name} ${quotes[0]?.legs[0]?.destination.name}`;
     const scheduledDeparture = route[route.length - 1].departure.scheduled;
 
     return (
       <>
         <header>EMBER</header>
         <main>
-          <time>{formatTimeAndDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY)}</time>
+          <time>{formatDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY)}</time>
           <h1>
             {tripOrigin} to {tripDestination}
           </h1>
 
-          <section id='timeline'>
-            <Route route={route} />
+          <section id='vehicle'>
+            <h2>Vehicle Details</h2>
+            {vehicle.has_toilet && (
+              <>
+                <IconToilet />
+              </>
+            )}
+
+            {vehicle.bicycle && (
+              <>
+                <IconBike />
+              </>
+            )}
+            {vehicle.wheelchair && (
+              <>
+                <IconWheelchair />
+              </>
+            )}
+
+            {vehicle.has_wifi && (
+              <>
+                <IconWifi />
+              </>
+            )}
           </section>
 
-          <h2>Vehicle Details</h2>
-          <dl>
-            <dt>Seats</dt>
-            <dd>{vehicle.seat}</dd>
-
-            <dt>Wheelchair Spaces</dt>
-            <dd>{vehicle.wheelchair}</dd>
-
-            <dt>Bicycle Spaces</dt>
-            <dd>{vehicle.bicycle}</dd>
-
-            <dt>WiFi Available</dt>
-            <dd>{vehicle.has_wifi ? 'Yes' : 'No'}</dd>
-
-            <dt>Toilet Available</dt>
-            <dd>{vehicle.has_toilet ? 'Yes' : 'No'}</dd>
-
-            <dt>GPS Location</dt>
-            <dd>
-              Latitude: {vehicle.gps.latitude}
-              <br />
-              Longitude: {vehicle.gps.longitude}
-              <br />
-              Heading: {vehicle.gps.heading}°<br />
-              Last Updated: {new Date(vehicle.gps.last_updated).toLocaleString()}
-            </dd>
-          </dl>
-
-          <h2>Trip Description</h2>
-          <dl>
-            <dt>Route Number</dt>
-            <dd>{description.route_number}</dd>
-
-            <dt>Route ID</dt>
-            <dd>{description.route_id}</dd>
-
-            <dt>Pattern ID</dt>
-            <dd>{description.pattern_id}</dd>
-
-            <dt>Calendar Date</dt>
-            <dd>{description.calendar_date}</dd>
-
-            <dt>Type</dt>
-            <dd>{description.type}</dd>
-
-            <dt>Status</dt>
-            <dd>{description.is_cancelled ? 'Cancelled' : 'Active'}</dd>
-          </dl>
+          <section id='timeline'>
+            Last Updated: {new Date(vehicle.gps.last_updated).toLocaleString()}
+            <Route route={route} />
+          </section>
         </main>
         <footer>footer!! hello!</footer>
       </>

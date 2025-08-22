@@ -10,9 +10,9 @@ export async function getAllQuotes(): Promise<unknown> {
   const currentDate = today.toISOString();
   const futureDate = tomorrow.toISOString();
 
-  // Just checking quotes from Aberdeen to Edinburgh on just a single day. Decided not to check future dates
+  // Just checking quotes from Aberdeen P&R to Edinburgh on just a single day. Decided not to check future dates
   const data = await fetch(
-    `https://api.ember.to/v1/quotes/?origin=17&destination=42&departure_date_from=${currentDate}&departure_date_to=${futureDate}`,
+    `https://api.ember.to/v1/quotes/?origin=171&destination=42&departure_date_from=${currentDate}&departure_date_to=${futureDate}`,
     {
       cache: 'no-store'
     }
@@ -23,7 +23,6 @@ export async function getAllQuotes(): Promise<unknown> {
     throw new Error('Failed to fetch quotes');
   }
   const { quotes } = await data.json();
-  console.log('quotes', quotes);
 
   return quotes;
 }
