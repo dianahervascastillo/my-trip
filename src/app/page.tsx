@@ -6,6 +6,7 @@ import IconWifi from './img/icons/wifi';
 import IconToilet from './img/icons/toilet';
 import IconBike from './img/icons/bike';
 import IconWheelchair from './img/icons/wheelchair';
+import Header from './components/common/header';
 
 interface Quote {
   legs: Array<{
@@ -90,7 +91,7 @@ export default async function Home() {
 
     return (
       <>
-        <header>EMBER</header>
+        <Header />
         <main>
           <time>{formatDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY)}</time>
           <h1>

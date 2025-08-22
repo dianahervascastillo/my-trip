@@ -1,4 +1,14 @@
-@import 'globals.css';
+@use 'base/normalize';
+@use 'base/base';
+@use 'base/variables';
+@use 'layout/layout';
+
+.header {
+  .ember-logo {
+    width: 130px;
+    height: auto;
+  }
+}
 
 .date-label {
   font-size: 14px;

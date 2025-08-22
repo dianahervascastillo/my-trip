@@ -1,6 +1,3 @@
-@import 'normalize.css';
-@import 'global-variables.css';
-
 html,
 body {
   font-size: var(--font-size-base);
@@ -15,6 +12,12 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   line-height: var(--line-height-base);
+}
+
+header,
+footer,
+main {
+  display: block;
 }
 
 h1,
