@@ -1,3 +1,25 @@
 .route {
   list-style: none;
+  padding: 0;
+  background-color: lightblue;
+
+  .stop::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
+  .stop {
+    display: flex;
+  }
+}
+
+.stop__time {
+  display: flex;
+  flex-direction: column-reverse;
+
+  span {
+    display: block;
+  }
 }

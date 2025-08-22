@@ -1,12 +1,12 @@
 import { getAllQuotes } from './api/quotes';
 import { getTripById } from './api/trips';
-import Route from './components/route';
 import { formatDate, TIME_DATE_FORMATS } from './utils/utils';
 import IconWifi from './img/icons/wifi';
 import IconToilet from './img/icons/toilet';
 import IconBike from './img/icons/bike';
 import IconWheelchair from './img/icons/wheelchair';
 import Header from './components/common/header';
+import Route from './components/route/route';
 
 interface Quote {
   legs: Array<{

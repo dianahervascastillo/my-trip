@@ -5,6 +5,7 @@ const Header = () => {
     <header className='header'>
       <div className='container'>
         <EmberLogo />
+        hello
       </div>
     </header>
   );

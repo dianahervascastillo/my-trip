@@ -22,3 +22,4 @@ bun dev
 3. Thought a lot a bout what to show, thinking about what I love about the train apps I use (I get car sick to train is preferred to bus) and what are the pain points. I really want to see ALL the stops and ETA of stops, plus basic info of vehicle.
 4. Getting some assets from Amber site (styles/colors, icons etc ..)
 5. Working on building a list of stops in an easy way, html wise.
+6. having problems with scss and turbopack (hot reload doesn't quite work)
