@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { formatTime, TIME_DATE_FORMATS } from '../../utils/utils';
 
 interface RouteStop {
@@ -28,12 +29,15 @@ interface StopInfoProps {
   isFirstStop: boolean;
 }
 
-const StopInfo = ({ stop, isLastStop }: StopInfoProps) => {
-  console.log('stop', stop);
+const StopInfo = ({ stop, isFirstStop, isLastStop }: StopInfoProps) => {
+  const componentClasses = clsx('stop', {
+    'stop--first': isFirstStop,
+    'stop--last': isLastStop
+  });
 
   // wondering why form some stops api does not have actual arrival time, just estimated
   return (
-    <li className='stop' key={stop.id}>
+    <li className={componentClasses} key={stop.id}>
       {!isLastStop ? (
         <>
           {stop.departure.actual ? (

@@ -38,7 +38,7 @@ export default function Route({ route }: RouteProps) {
             <StopInfo
               key={stop.id}
               stop={stop}
-              isFirstStop={index === 0}
+              isFirstStop={index === 1}
               isLastStop={index === route.length - 1}
             />
           );
