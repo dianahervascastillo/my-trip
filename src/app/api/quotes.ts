@@ -13,8 +13,9 @@ export async function getAllQuotes(): Promise<unknown> {
   console.log('Today:', currentDate);
   console.log('2 days later:', futureDate);
 
+  // Just checking quotes from Aberdeen to Edinburgh on just a single day. Decided not to check future dates
   const data = await fetch(
-    `https://api.ember.to/v1/quotes/?origin=13&destination=42&departure_date_from=${currentDate}&departure_date_to=${futureDate}`,
+    `https://api.ember.to/v1/quotes/?origin=17&destination=42&departure_date_from=${currentDate}&departure_date_to=${currentDate}`,
     {
       cache: 'no-store'
     }

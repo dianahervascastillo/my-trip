@@ -5,20 +5,31 @@ type DateFormat = {
   year: string;
 };
 
-type DateFormats = {
-  [key: string]: DateFormat;
+type TimeFormat = {
+  hour: string;
+  minute: string;
+  hour12: boolean;
 };
 
-export const DATE_FORMATS: DateFormats = {
+type TimeAndDateFormats = {
+  [key: string]: DateFormat | TimeFormat;
+};
+
+export const TIME_DATE_FORMATS: DateFormats = {
   SHORT_DAY: {
     weekday: 'short',
     day: '2-digit',
     month: 'short',
     year: 'numeric'
+  },
+  SHORT_TIME: {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false // 24-hour format hardcoded
   }
 };
 
-export function formatDate(
+export function formatTimeAndDate(
   dateStr: string,
   formatOptions: Intl.DateTimeFormatOptions,
   locale: string = 'en-GB'

@@ -1,7 +1,7 @@
 import { getAllQuotes } from './api/quotes';
 import { getTripById } from './api/trips';
 import Route from './components/route';
-import { formatDate, DATE_FORMATS } from './utils/utils';
+import { formatTimeAndDate, TIME_DATE_FORMATS } from './utils/utils';
 
 interface Quote {
   legs: Array<{
@@ -87,10 +87,14 @@ export default async function Home() {
       <>
         <header>EMBER</header>
         <main>
-          <time>{formatDate(scheduledDeparture, DATE_FORMATS.SHORT_DAY)}</time>
+          <time>{formatTimeAndDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY)}</time>
           <h1>
             {tripOrigin} to {tripDestination}
           </h1>
+
+          <section id='timeline'>
+            <Route route={route} />
+          </section>
 
           <h2>Vehicle Details</h2>
           <dl>
@@ -140,8 +144,6 @@ export default async function Home() {
             <dt>Status</dt>
             <dd>{description.is_cancelled ? 'Cancelled' : 'Active'}</dd>
           </dl>
-
-          <Route route={route} />
         </main>
         <footer>footer!! hello!</footer>
       </>
