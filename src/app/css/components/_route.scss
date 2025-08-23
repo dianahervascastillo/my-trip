@@ -1,9 +1,9 @@
-.route {
+.stops {
   list-style: none;
   padding: 0;
   background-color: lightblue;
   position: relative;
-  width: 50%;
+  width: 100%;
 
   &::before {
     content: '';
@@ -16,30 +16,40 @@
     z-index: 1;
   }
 
-  .stop::before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 20px;
+  @media (min-width: 481px) {
+    width: 50%;
   }
-  .stop:not(.stop--first, .stop--last):before {
-    background-color: grey;
+  @media (min-width: 769px) {
+    width: 80%;
   }
+  @media (min-width: 1280px) {
+    width: 50%;
+  }
+}
 
-  .stop--first::before {
+.stop::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+.stop {
+  display: flex;
+  z-index: 2;
+  position: relative;
+  margin-bottom: 2rem;
+
+  &--first::before {
     background-color: red;
   }
 
-  .stop--last::before {
+  &--last::before {
     background-color: green;
   }
+}
 
-  .stop {
-    display: flex;
-    z-index: 2;
-    position: relative;
-    margin-bottom: 2rem;
-  }
+.stop:not(.stop--first, .stop--last):before {
+  background-color: grey;
 }
 
 .stop__time {

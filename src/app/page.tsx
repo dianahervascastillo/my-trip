@@ -73,7 +73,7 @@ export default async function Home() {
   try {
     const quotes = (await getAllQuotes()) as Quote[];
     // const tripId = quotes[0]?.legs[0]?.trip_uid;
-    const tripId = '5bpmP6qV9VQCD4GSmXoYz8';
+    const tripId = 'PSc6Kw3ikeraNwswqFfxKN';
 
     if (!tripId) {
       throw new Error('No valid trip ID found in quotes');
@@ -93,41 +93,43 @@ export default async function Home() {
       <>
         <Header />
         <main>
-          <time>{formatDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY)}</time>
-          <h1>
-            {tripOrigin} to {tripDestination}
-          </h1>
+          <div className='container'>
+            <time>{formatDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY)}</time>
+            <h1>
+              {tripOrigin} to {tripDestination}
+            </h1>
 
-          <section id='vehicle'>
-            <h2>Vehicle Details</h2>
-            {vehicle.has_toilet && (
-              <>
-                <IconToilet />
-              </>
-            )}
+            <section id='vehicle'>
+              <h2>Vehicle Details</h2>
+              {vehicle.has_toilet && (
+                <>
+                  <IconToilet />
+                </>
+              )}
 
-            {vehicle.bicycle && (
-              <>
-                <IconBike />
-              </>
-            )}
-            {vehicle.wheelchair && (
-              <>
-                <IconWheelchair />
-              </>
-            )}
+              {vehicle.bicycle && (
+                <>
+                  <IconBike />
+                </>
+              )}
+              {vehicle.wheelchair && (
+                <>
+                  <IconWheelchair />
+                </>
+              )}
 
-            {vehicle.has_wifi && (
-              <>
-                <IconWifi />
-              </>
-            )}
-          </section>
+              {vehicle.has_wifi && (
+                <>
+                  <IconWifi />
+                </>
+              )}
+            </section>
 
-          <section id='timeline'>
-            Last Updated: {new Date(vehicle.gps.last_updated).toLocaleString()}
-            <Route route={route} />
-          </section>
+            <section id='route' className='route'>
+              Last Updated: {new Date(vehicle.gps.last_updated).toLocaleString()}
+              <Route route={route} />
+            </section>
+          </div>
         </main>
         <footer>footer!! hello!</footer>
       </>

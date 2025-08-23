@@ -26,9 +26,9 @@ interface RouteProps {
 
 export default function Route({ route }: RouteProps) {
   return (
-    <div>
+    <div className='route__wrapper'>
       <h2>Journey Route</h2>
-      <ol className='route'>
+      <ol className='stops'>
         {route.map((stop, index) => {
           //remove depot stop
           if (!stop.allow_boarding && index === 0) {
