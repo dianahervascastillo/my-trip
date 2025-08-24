@@ -1,11 +1,8 @@
-@import 'normalize.css';
-@import 'global-variables.css';
-
 html,
 body {
   font-size: var(--font-size-base);
   height: 100%;
-  color: var(--gray-01);
+  color: var(--gray-04);
 }
 
 body {
@@ -14,7 +11,13 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  line-height: var(--line-height-base);
+  line-height: var(--line-height-lg);
+}
+
+header,
+footer,
+main {
+  display: block;
 }
 
 h1,
@@ -25,6 +28,8 @@ h5,
 h6 {
   margin-top: 0;
   margin-bottom: 0;
+  line-height: normal;
+  color: var(--gray-04);
 }
 
 p {

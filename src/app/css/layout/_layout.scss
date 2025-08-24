@@ -1,0 +1,47 @@
+.container {
+  position: relative;
+  max-width: 1440px;
+  padding: 1.5rem;
+  margin: 0 auto;
+
+  @media (min-width: 769px) {
+    padding: 2rem;
+  }
+}
+
+.main-grid {
+  padding: 0;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'route-section'
+    'vehicle-section';
+  background-color: #fff;
+  color: #444;
+
+  @media (min-width: 1025px) {
+    grid-template-areas:
+      'route-section vehicle-section'
+      'route-section vehicle-section';
+    grid-template-columns: 1fr 0.5fr;
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-areas:
+      'route-section vehicle-section'
+      'route-section vehicle-section';
+    grid-template-columns: 1fr 0.75fr;
+  }
+}
+
+section {
+  padding: 2rem;
+}
+
+@media (min-width: 481px) {
+}
+@media (min-width: 769px) {
+}
+@media (min-width: 1280px) {
+}

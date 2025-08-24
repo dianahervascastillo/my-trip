@@ -1,0 +1,32 @@
+.header {
+  background-color: var(--gray-04);
+  color: var(--white);
+
+  & .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  h1 {
+    color: inherit;
+  }
+}
+
+.trip-date {
+  font-size: var(--font-size-lg);
+}
+.trip-last-updated {
+  background-color: var(--gray-03);
+}
+
+.ember-logo {
+  width: 130px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+
+  & .text > path {
+    fill: var(--white);
+  }
+}

@@ -1,0 +1,97 @@
+.route {
+  grid-area: route-section;
+}
+
+.stops {
+  list-style: none;
+  position: relative;
+  width: 100%;
+  font-size: var(--font-size-lg);
+  margin: 0;
+  padding: 0;
+
+  h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-md);
+  }
+  h3 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-base);
+    margin-top: 0.5rem;
+  }
+}
+
+.stop::before {
+  content: '';
+  display: block;
+  position: absolute;
+  min-width: 1rem;
+  height: 1rem;
+  border-radius: 4rem;
+  border-width: 0.25rem;
+  border-style: solid;
+  background-color: var(--white);
+  margin-left: 0.125rem;
+  margin-top: 0.25rem;
+  box-shadow: 0px 0px 0px 0.25rem #ffffff;
+  z-index: 2;
+}
+
+.stop:not(:last-child)::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 0.25rem;
+  background: var(--gray-01);
+  margin-left: 0.5rem;
+  position: absolute;
+  z-index: 1;
+}
+
+.stop {
+  display: flex;
+  z-index: 2;
+  position: relative;
+  padding-bottom: 3rem;
+
+  &--first::before {
+    border-color: var(--green-02);
+  }
+  &--first.stop--departed::before {
+    background-color: var(--green-02);
+  }
+
+  &--skipped::before,
+  &--departed::before {
+    background-color: var(--gray-02);
+  }
+
+  &--last::before {
+    border-color: green;
+  }
+}
+
+.stop:not(.stop--first, .stop--last):before {
+  border-color: grey;
+}
+
+.stop__time {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  margin-left: 1.5rem;
+  margin-right: 2rem;
+  min-width: 100px;
+
+  span {
+    display: block;
+    font-size: var(--font-size-sm);
+  }
+}
+
+.bus {
+  display: block;
+  position: absolute;
+  margin-top: 2rem;
+  z-index: 2;
+}

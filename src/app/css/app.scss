@@ -1,18 +1,7 @@
-@import 'globals.css';
+@use 'base/normalize';
+@use 'base/base';
+@use 'base/variables';
+@use 'layout/layout';
 
-.date-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #999;
-  background-color: aqua;
-
-  &--current {
-    background-color: #000;
-    color: #fff;
-  }
-
-  &--past {
-    background-color: #666;
-    color: #fff;
-  }
-}
+@use 'components/header';
+@use 'components/trip';

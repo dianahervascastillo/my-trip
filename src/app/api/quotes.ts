@@ -4,17 +4,18 @@ export async function getAllQuotes(): Promise<unknown> {
   const today = new Date();
 
   // Add 2 days
-  const dayAfterTomorrow = new Date();
-  dayAfterTomorrow.setDate(today.getDate() + 2);
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
 
   const currentDate = today.toISOString();
-  const futureDate = dayAfterTomorrow.toISOString();
+  const futureDate = tomorrow.toISOString();
 
-  console.log('Today:', currentDate);
-  console.log('2 days later:', futureDate);
-
+  // Just checking quotes from Aberdeen P&R to Edinburgh on just a single day. Decided not to check future dates
   const data = await fetch(
-    `https://api.ember.to/v1/quotes/?origin=13&destination=42&departure_date_from=${currentDate}&departure_date_to=${futureDate}`
+    `https://api.ember.to/v1/quotes/?origin=171&destination=42&departure_date_from=${currentDate}&departure_date_to=${futureDate}`,
+    {
+      cache: 'no-store'
+    }
   );
 
   // Failed to fetch
