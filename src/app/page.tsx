@@ -1,6 +1,6 @@
 import { getAllQuotes } from './api/quotes';
 import { getTripById } from './api/trips';
-import { formatDate, formatTime, TIME_DATE_FORMATS } from './utils/utils';
+import { formatDate, TIME_DATE_FORMATS } from './utils/utils';
 
 import Header from './components/common/header';
 import Route from './components/route/route';
@@ -49,24 +49,28 @@ export default async function Home() {
   try {
     // get all quotes from the time when page is rendered
     const quotes = (await getAllQuotes()) as Quote[];
+
+    console.log('quotes', quotes);
+
     //choosing the first one of the quotes
-    const tripId = quotes[0]?.legs[0]?.trip_uid;
+    // const tripId = quotes[0]?.legs[0]?.trip_uid;
+    const tripId = 'F9Ea2q6XbAeGoLaNCLpy9A';
 
     if (!tripId) {
       throw new Error('No valid trip ID found in quotes');
     }
 
-    console.log('tripId', tripId);
-
     // Fetch trip info with proper error handling
     const tripData = (await getTripById(tripId)) as TripData;
     const { route, vehicle, description } = tripData;
 
+    // I'm thinking that it would be best to extract all the data processing
+    // into a function to have a cleaner component, but for the sake
+    // of showing abit the way I thought of things I'll leave it here.
+    const tripLastUpdated = formatDate(vehicle.gps.last_updated, TIME_DATE_FORMATS.HOUR_DAY);
     const tripOrigin = `${quotes[0]?.legs[0]?.origin.name}`;
     const tripDestination = `${quotes[0]?.legs[0]?.destination.region_name} ${quotes[0]?.legs[0]?.destination.name}`;
-    const scheduledDeparture = description?.calendar_date;
-    const tripDate = formatDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY);
-    const tripLastUpdated = formatDate(vehicle.gps.last_updated, TIME_DATE_FORMATS.HOUR_DAY);
+    const tripDate = formatDate(description?.calendar_date, TIME_DATE_FORMATS.SHORT_DAY);
     const tripTitle = `${tripOrigin} to ${tripDestination}`;
 
     return (

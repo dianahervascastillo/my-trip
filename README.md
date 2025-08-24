@@ -24,3 +24,5 @@ bun dev
 5. Working on building a list of stops in an easy way, html wise.
 6. having problems with scss and turbopack (hot reload doesn't quite work)
 7. I decided to avoid css in js as I'd like to work with class based css, so classic approach, simply adding a class based on props. Just because this way we could always extract the css and serve it from a cdn if we wanted to have a static site using this css.
+   8.Thinking about testing and error handling.
+8. Testing recommended using e2e for async components (just because is next.js)
