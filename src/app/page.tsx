@@ -65,7 +65,6 @@ export default async function Home() {
     const tripOrigin = `${quotes[0]?.legs[0]?.origin.name}`;
     const tripDestination = `${quotes[0]?.legs[0]?.destination.region_name} ${quotes[0]?.legs[0]?.destination.name}`;
     const scheduledDeparture = description?.calendar_date;
-    // I guess I could also use description.calendar_date instead of the schedule departure
     const tripDate = formatDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY);
     const tripLastUpdated = formatDate(vehicle.gps.last_updated, TIME_DATE_FORMATS.HOUR_DAY);
     const tripTitle = `${tripOrigin} to ${tripDestination}`;
