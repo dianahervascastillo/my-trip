@@ -1,12 +1,10 @@
 import { getAllQuotes } from './api/quotes';
 import { getTripById } from './api/trips';
-import { formatDate, TIME_DATE_FORMATS } from './utils/utils';
-import IconWifi from './img/icons/wifi';
-import IconToilet from './img/icons/toilet';
-import IconBike from './img/icons/bike';
-import IconWheelchair from './img/icons/wheelchair';
+import { formatDate, formatTime, TIME_DATE_FORMATS } from './utils/utils';
+
 import Header from './components/common/header';
 import Route from './components/route/route';
+import Vehicle from './components/vehicle/vehicle';
 
 interface Quote {
   legs: Array<{
@@ -34,28 +32,6 @@ interface RouteStop {
   allow_drop_off: boolean;
 }
 
-interface Vehicle {
-  seat: number;
-  wheelchair: number;
-  bicycle: number;
-  id: number;
-  plate_number: string;
-  name: string;
-  has_wifi: boolean;
-  has_toilet: boolean;
-  type: string;
-  brand: string;
-  colour: string;
-  is_backup_vehicle: boolean;
-  owner_id: number;
-  gps: {
-    last_updated: string;
-    longitude: number;
-    latitude: number;
-    heading: number;
-  };
-}
-
 interface TripData {
   route: RouteStop[];
   vehicle: Vehicle;
@@ -71,9 +47,10 @@ interface TripData {
 
 export default async function Home() {
   try {
+    // get all quotes from the time when page is rendered
     const quotes = (await getAllQuotes()) as Quote[];
-    // const tripId = quotes[0]?.legs[0]?.trip_uid;
-    const tripId = 'PSc6Kw3ikeraNwswqFfxKN';
+    //choosing the first one of the quotes
+    const tripId = quotes[0]?.legs[0]?.trip_uid;
 
     if (!tripId) {
       throw new Error('No valid trip ID found in quotes');
@@ -87,55 +64,30 @@ export default async function Home() {
 
     const tripOrigin = `${quotes[0]?.legs[0]?.origin.name}`;
     const tripDestination = `${quotes[0]?.legs[0]?.destination.region_name} ${quotes[0]?.legs[0]?.destination.name}`;
-    const scheduledDeparture = route[route.length - 1].departure.scheduled;
+    const scheduledDeparture = description?.calendar_date;
+    // I guess I could also use description.calendar_date instead of the schedule departure
+    const tripDate = formatDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY);
+    const tripLastUpdated = formatDate(vehicle.gps.last_updated, TIME_DATE_FORMATS.HOUR_DAY);
+    const tripTitle = `${tripOrigin} to ${tripDestination}`;
 
     return (
       <>
-        <Header />
+        <Header tripDate={tripDate} tripLastUpdated={tripLastUpdated} tripTitle={tripTitle} />
         <main>
-          <div className='container'>
-            <time>{formatDate(scheduledDeparture, TIME_DATE_FORMATS.SHORT_DAY)}</time>
-            <h1>
-              {tripOrigin} to {tripDestination}
-            </h1>
-
-            <section id='vehicle'>
-              <h2>Vehicle Details</h2>
-              {vehicle.has_toilet && (
-                <>
-                  <IconToilet />
-                </>
-              )}
-
-              {vehicle.bicycle && (
-                <>
-                  <IconBike />
-                </>
-              )}
-              {vehicle.wheelchair && (
-                <>
-                  <IconWheelchair />
-                </>
-              )}
-
-              {vehicle.has_wifi && (
-                <>
-                  <IconWifi />
-                </>
-              )}
-            </section>
-
-            <section id='route' className='route'>
-              Last Updated: {new Date(vehicle.gps.last_updated).toLocaleString()}
+          <div className='container main-grid'>
+            <section className='route'>
               <Route route={route} />
+            </section>
+            <section className='vehicle'>
+              <Vehicle vehicle={vehicle} description={description} />
             </section>
           </div>
         </main>
-        <footer>footer!! hello!</footer>
+        <footer>Diana Castillo!</footer>
       </>
     );
   } catch (error) {
-    console.error('Error in Home component:', error);
+    console.error('Error', error);
 
     return (
       <>

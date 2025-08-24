@@ -1,0 +1,15 @@
+.vehicle {
+  background-color: var(--gray-01);
+  grid-area: vehicle-section;
+}
+
+.vehicle-detail {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  span {
+    margin-left: 0.5rem;
+  }
+}

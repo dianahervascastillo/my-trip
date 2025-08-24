@@ -5,10 +5,12 @@ interface RouteStop {
   departure: {
     scheduled: string;
     estimated: string;
+    actual?: string; // Optional actual departure time
   };
   arrival: {
     scheduled: string;
     estimated: string;
+    actual?: string; // Optional actual arrival time
   };
   location: {
     name: string;
@@ -25,58 +27,41 @@ interface RouteProps {
 }
 
 export default function Route({ route }: RouteProps) {
-  return (
-    <div className='route__wrapper'>
-      <h2>Journey Route</h2>
-      <ol className='stops'>
-        {route.map((stop, index) => {
-          //remove depot stop
-          if (!stop.allow_boarding && index === 0) {
-            return null;
-          }
-          return (
-            <StopInfo
-              key={stop.id}
-              stop={stop}
-              isFirstStop={index === 1}
-              isLastStop={index === route.length - 1}
-            />
-          );
+  // Find the last stop with departure.actual (in theory the last stop the bus departed from)
+  const findLastActualDeparture = (stops: RouteStop[]): RouteStop | null => {
+    // Filter stops that have actual departure times and find the last one
+    const stopsWithActualDeparture = stops.filter((stop) => stop.departure.actual);
 
-          // return (
-          //   <li key={stop.id}>
-          //     <strong>{stop.location.name}</strong>
-          //     {stop.location.detailed_name !== stop.location.name && (
-          //       <span> - {stop.location.detailed_name}</span>
-          //     )}
-          //     <br />
-          //     <small>
-          //       {stop.location.region_name} ({stop.location.code})
-          //       </small>
-          //     <br />
-          //     <span>
-          //       Departure: {new Date(stop.departure.scheduled).toLocaleTimeString()}
-          //       {stop.departure.estimated !== stop.departure.scheduled && (
-          //         <span> (Est: {new Date(stop.departure.estimated).toLocaleTimeString()})</span>
-          //       )}
-          //     </span>
-          //     <br />
-          //     <span>
-          //       Arrival: {new Date(stop.arrival.scheduled).toLocaleTimeString()}
-          //       {stop.arrival.estimated !== stop.arrival.scheduled && (
-          //         <span> (Est: {new Date(stop.arrival.estimated).toLocaleTimeString()})</span>
-          //       )}
-          //     </span>
-          //     <br />
-          //     <span>
-          //       {stop.allow_boarding ? '✅ Boarding allowed' : '❌ No boarding'}
-          //       {' | '}
-          //       {stop.allow_drop_off ? '✅ Drop-off allowed' : '❌ No drop-off'}
-          //     </span>
-          //   </li>
-          // );
-        })}
-      </ol>
-    </div>
+    if (stopsWithActualDeparture.length === 0) {
+      return null; // No stops with actual departure times
+    }
+
+    // Return the last stop with actual departure (highest index in original array)
+    return stopsWithActualDeparture[stopsWithActualDeparture.length - 1];
+  };
+
+  const lastActualDeparture = findLastActualDeparture(route);
+  console.log('lastActualDeparture', lastActualDeparture);
+
+  return (
+    <ol className='stops'>
+      {route.map((stop, index) => {
+        const isLastActualDeparture = lastActualDeparture && stop.id === lastActualDeparture.id;
+
+        if (!stop.allow_boarding && index === 0) {
+          return null;
+        }
+
+        return (
+          <StopInfo
+            key={stop.id}
+            stop={stop}
+            inTransit={isLastActualDeparture}
+            isFirstStop={index === 1}
+            isLastStop={index === route.length - 1}
+          />
+        );
+      })}
+    </ol>
   );
 }

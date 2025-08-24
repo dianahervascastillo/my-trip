@@ -1,21 +1,8 @@
-type DateFormat = {
-  weekday: string;
-  day: string;
-  month: string;
-  year: string;
-};
-
-type TimeFormat = {
-  hour: string;
-  minute: string;
-  hour12: boolean;
-};
-
-type TimeAndDateFormats = {
-  [key: string]: DateFormat | TimeFormat;
-};
-
-export const TIME_DATE_FORMATS: TimeAndDateFormats = {
+export const TIME_DATE_FORMATS: {
+  SHORT_DAY: Intl.DateTimeFormatOptions;
+  SHORT_TIME: Intl.DateTimeFormatOptions;
+  HOUR_DAY: Intl.DateTimeFormatOptions;
+} = {
   SHORT_DAY: {
     weekday: 'short',
     day: '2-digit',
@@ -26,9 +13,17 @@ export const TIME_DATE_FORMATS: TimeAndDateFormats = {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false // 24-hour format hardcoded
+  },
+  HOUR_DAY: {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false // 24-hour format hardcoded
   }
 };
 
+// may be best to create a function to deal with both dates and times to not repeat code
 export function formatDate(
   dateStr: string,
   formatOptions: Intl.DateTimeFormatOptions,
