@@ -99,7 +99,6 @@ export default async function TripPage({ params }: PageProps) {
             </section>
           </div>
         </main>
-        <footer>Diana Castillo!</footer>
       </>
     );
   } catch (error) {

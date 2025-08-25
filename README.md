@@ -58,7 +58,7 @@ I knew that this app wouldn't be perfect, of course, and there's probably decisi
 
 ### Data, Performance and Error handling
 
-I decided to go for server components but I actually think that probably for the trip info page might be best to use a client-side component that can be refreshed at real time (maybe Websockets?) by an api that allows for the FE to poll for changes without having to load the whole object. Would be good to get the geolocation as up to date as possible but we don't need to get the stop names refreshed all the time. To be honest, I've never had to implement something like this personally, so this is definitely not my expertise.
+I decided to go for server components but I actually think that probably for the trip info page might be best to use a client-side component that can be refreshed at real time (maybe Websockets?) by an api that allows for the FE to poll for changes without having to load the whole object. Would be good to get the geolocation as up to date as possible but we don't need to get the stop names refreshed all the time. To be honest, I've never had to implement something like this personally, so this is definitely not my expertise. Maybe a BFF would be useful to have a middle layer to work on the caching and doing the data transformations.
 
 Ideally, we want to just fetch the data once, prerender what we can and maybe just refresh the parts of the data that are less likely to change whilst making sure that critical data for geolocation and estimated times are always up to date.
 
@@ -76,12 +76,9 @@ My approach was quite a simple one: for me the most important part on my approac
 
 I kept trying to imagine what other information I would want to know if I had been in a bus on my way back to Edin from Aberdeen (that was my use case) so really the stops and any info about possible delays would be the most useful stuff.
 
-I decided to create a sort of timeline, but is just a simple list of stops and I decided to show the scheduled arrival time of all stops.
+I decided to create a sort of timeline, but is just a simple list of stops and I decided to show the scheduled arrival time of all stops and if the trip happens to have started you'll be able to see a bus icon showing in between what stops the bus is.
 
-If the trip happens to have started you'll be able to see a bus icon showing in between what stops the bus is.
-
-There's many things I think I would have liked to add/change
-
+- At the moment the SSR takes a second to show the quotes list so maybe adding a loading screen or showing something preloaded would be nice, and same withe the links to the trip info pages as they seem to take a few miliseconds to actually load the page.
 - Adding the time to the left of the stop circle, I think it would look better
 - Adding tooltips for info such as if boarding/drop-off is allowed, maybe how many mins late if service is running late...
 - Adding an alert component to show info if trip has been cancelled or delayed or any other issues that could affect the trip.
@@ -102,7 +99,6 @@ As you can tell, I don't tend to do TDD. I usually work on features or functions
 
 - I would definitely unit test the function that compares the dates (but I would move the function somewhere else first)
 - I would probably create e2e tests with playwright to test the app and the flow, as oposed to unit test the home page and the trip info page.
+- Would be brilliant to run a11y/performance checks in CI pipeline.
 
-## Things that are important to deal with
-
-- Security on the FE
+Probably think about what sort of metrics would be useful to check: status of service, latency, error rate, etc...

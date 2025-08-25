@@ -42,7 +42,6 @@ export default async function Home() {
             </ol>
           </div>
         </main>
-        <footer>Diana Castillo!</footer>
       </>
     );
   } catch (error) {
@@ -54,7 +53,6 @@ export default async function Home() {
           <h1>Error Loading quotes</h1>
           <p>Sorry, we couldn&apos;t load the quotes. Please try again later.</p>
         </main>
-        <footer>footer!! hello!</footer>
       </>
     );
   }
