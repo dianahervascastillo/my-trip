@@ -17,9 +17,11 @@ bun dev
 ## Context
 
 Since I've had my family over for holidays and I was also on holidays, my available time was scarce so I had to limit working a couple of hours a day, sometimes three.
-I wanted to set a time limit of 8h but I'm sure I've done probably 4h more than I wanted.
+I wanted to set a time limit of 8h but I'm sure I've done probably 4h more than I wanted, as also writing this README.md is taking me a while now.
 
 To be fair, I've had a lof of fun developing this small app, and it was also time for to escape my very spanish family and enjoy some quiet time 😅
+
+Full disclosure that I will definitely forget things to talk about in this README.md so if you have any questions please let me know at diana.hercas@gmail.com
 
 ## Tools
 
@@ -87,10 +89,16 @@ There's many things I think I would have liked to add/change
 - Possibly hiding skipped stops by default so the timeline is not that long but allowing user to expand, or maybe even grouping blocks of stops but also allowing to expand to see all.
 - Realised I forgot to add the seat count info, but basically just having all the info about the vehicle including name (that contains the license plate)
 - I'm hardcoding the locale but I can see now that the time zone is returned to that could be used in the utils I created to transform the dates. I'm assuming we want to show the dates on the local time.
+- Making sure the user knows when page if offline and showing the last scheduled time accordingly (atm is just showing the time the user refreshes the page)
+- My CSS approach is quite a simple one but could be better by using more variables in a better way and definitely having mixins for mediaqueries. The approach basically responds to the fact that I didn't have to work with a design system or components library.
+- Accessibility: things like color contrast, screen reader and keyboard navigation I haven't really checked. I did try to use as semantic HTML as possible and deciding to have full circles for completed stops and empty circles for schedule as I don't think color change would be useful if user is color blind.
+- Adding contact information for Ember so the user can ask any questions and links to the FAQ or any other pages that would be useful.
+
+....and plenty more things I'm probably forgetting about
 
 ### Testing & Observability
 
-As you can tell, I'm not a test-driven developer, unfortunately. I tend to work on small features or functions first and then start writing those tests, that's why,at the end of the allocated time I had, I haven't really tested anything, so apologies for it.
+As you can tell, I don't tend to do TDD. I usually work on features or functions and it will be after I've written some functionality that I start then writing tests but this time at the end of the allocated time I had, I hadn't really tested anything, so apologies for this.
 
 -Testing recommended using e2e for async components (just because is next.js)
 
