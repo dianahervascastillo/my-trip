@@ -43,8 +43,6 @@ const VehicleDetail = ({ children }) => {
 };
 
 const Vehicle = ({ vehicle, description }: VehicleProps) => {
-  console.log('vehicle', vehicle);
-  console.log('description', description);
   return (
     <>
       <h2>Services</h2>

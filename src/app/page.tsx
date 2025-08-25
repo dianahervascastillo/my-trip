@@ -1,89 +1,45 @@
+import Link from 'next/link';
 import { getAllQuotes } from './api/quotes';
-import { getTripById } from './api/trips';
-import { formatDate, TIME_DATE_FORMATS } from './utils/utils';
-
+import { formatTime, TIME_DATE_FORMATS, compareLegsByScheduledDeparture } from './utils/utils';
+import { Quote } from './utils/types';
 import Header from './components/common/header';
-import Route from './components/route/route';
-import Vehicle from './components/vehicle/vehicle';
 
-interface Quote {
-  legs: Array<{
-    trip_uid: string;
-  }>;
-}
-
-interface RouteStop {
-  id: number;
-  departure: {
-    scheduled: string;
-    estimated: string;
-  };
-  arrival: {
-    scheduled: string;
-    estimated: string;
-  };
-  location: {
-    name: string;
-    detailed_name: string;
-    region_name: string;
-    code: string;
-  };
-  allow_boarding: boolean;
-  allow_drop_off: boolean;
-}
-
-interface TripData {
-  route: RouteStop[];
-  vehicle: Vehicle;
-  description: {
-    route_number: string;
-    pattern_id: number;
-    calendar_date: string;
-    type: string;
-    is_cancelled: boolean;
-    route_id: number;
-  };
-}
-
+// Initially, this is the page where I was loading a hardcoded id trip but today
+// I decided to show the quotes list with links to individual trip pages
+// to try the next.js implementation of dynamic pages
 export default async function Home() {
   try {
-    // get all quotes from the time when page is rendered
+    // Get all quotes
     const quotes = (await getAllQuotes()) as Quote[];
-
-    console.log('quotes', quotes);
-
-    //choosing the first one of the quotes
-    // const tripId = quotes[0]?.legs[0]?.trip_uid;
-    const tripId = 'F9Ea2q6XbAeGoLaNCLpy9A';
-
-    if (!tripId) {
-      throw new Error('No valid trip ID found in quotes');
-    }
-
-    // Fetch trip info with proper error handling
-    const tripData = (await getTripById(tripId)) as TripData;
-    const { route, vehicle, description } = tripData;
-
-    // I'm thinking that it would be best to extract all the data processing
-    // into a function to have a cleaner component, but for the sake
-    // of showing abit the way I thought of things I'll leave it here.
-    const tripLastUpdated = formatDate(vehicle.gps.last_updated, TIME_DATE_FORMATS.HOUR_DAY);
-    const tripOrigin = `${quotes[0]?.legs[0]?.origin.name}`;
-    const tripDestination = `${quotes[0]?.legs[0]?.destination.region_name} ${quotes[0]?.legs[0]?.destination.name}`;
-    const tripDate = formatDate(description?.calendar_date, TIME_DATE_FORMATS.SHORT_DAY);
-    const tripTitle = `${tripOrigin} to ${tripDestination}`;
+    // Sort the quotes by the closest to the api call moment to the future ones.
+    const sortedQuotes = [...quotes].sort(compareLegsByScheduledDeparture);
 
     return (
       <>
-        <Header tripDate={tripDate} tripLastUpdated={tripLastUpdated} tripTitle={tripTitle} />
+        <Header tripTitle='Aberdeen (Bridge of Don P&R) to Edinburgh (George Street - Stop GL)' />
         <main>
-          <div className='container main-grid'>
-            <section className='route'>
-              <Route route={route} />
-            </section>
-            <section className='vehicle'>
-              <Vehicle vehicle={vehicle} description={description} />
-            </section>
+          <div className='container'>
+            <ol>
+              {sortedQuotes.map((quote, idx) => {
+                const leg = quote.legs[0];
+                if (!leg) return null;
+
+                const title = `${leg.origin.region_name} → ${leg.destination.region_name}`;
+                const time = leg.departure?.scheduled
+                  ? formatTime(
+                      leg.departure.scheduled as unknown as string,
+                      TIME_DATE_FORMATS.HOUR_DAY
+                    )
+                  : '—';
+                return (
+                  <li key={`${leg.trip_uid}-${idx}`}>
+                    <Link href={`/trip/${leg.trip_uid}`}>
+                      {title} — <strong>{time}</strong>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ol>
           </div>
         </main>
         <footer>Diana Castillo!</footer>
@@ -95,8 +51,8 @@ export default async function Home() {
     return (
       <>
         <main>
-          <h1>Error Loading Trip</h1>
-          <p>Sorry, we couldn&apos;t load the trip information. Please try again later.</p>
+          <h1>Error Loading quotes</h1>
+          <p>Sorry, we couldn&apos;t load the quotes. Please try again later.</p>
         </main>
         <footer>footer!! hello!</footer>
       </>

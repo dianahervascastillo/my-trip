@@ -1,9 +1,9 @@
 import EmberLogo from '../../img/ember';
 
 interface HeaderProps {
-  tripDate: string;
-  tripLastUpdated: string;
-  tripTitle: React.ReactNode;
+  tripDate?: string;
+  tripLastUpdated?: string;
+  tripTitle?: React.ReactNode;
 }
 
 const Header = ({ tripDate, tripLastUpdated, tripTitle }: HeaderProps) => {
@@ -18,9 +18,11 @@ const Header = ({ tripDate, tripLastUpdated, tripTitle }: HeaderProps) => {
       <div className='trip-last-updated'>
         <div className='container'>
           <h1>{tripTitle}</h1>
-          <p>
-            <strong>Trip last updated: {tripLastUpdated}</strong>
-          </p>
+          {tripLastUpdated && (
+            <p>
+              <strong>Trip last updated: {tripLastUpdated}</strong>
+            </p>
+          )}
         </div>
       </div>
     </header>
