@@ -98,12 +98,10 @@ There's many things I think I would have liked to add/change
 
 ### Testing & Observability
 
-As you can tell, I don't tend to do TDD. I usually work on features or functions and it will be after I've written some functionality that I start then writing tests but this time at the end of the allocated time I had, I hadn't really tested anything, so apologies for this.
+As you can tell, I don't tend to do TDD. I usually work on features or functions and it will be after I've written some functionality that I start then writing tests but this time at the end of the allocated time I had, I had only created unit tests for the small util functions and one test that I actually decided to delete because I realised it was not going to work this way.
 
-- I would definitely unit test the utils functions.
--
-
--Testing recommended using e2e for async components (just because is next.js)
+- I would definitely unit test the function that compares the dates (but I would move the function somewhere else first)
+- I would probably create e2e tests with playwright to test the app and the flow, as oposed to unit test the home page and the trip info page.
 
 ## Things that are important to deal with
 
