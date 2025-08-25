@@ -38,7 +38,6 @@ export default async function Home() {
                       <div className='quote__time'>
                         <strong>{scheduledDeparture}</strong> — <strong>{scheduledArrival}</strong>
                       </div>
-
                       <Link href={`/trip/${leg.trip_uid}`}>View trip page</Link>
                     </li>
                   );

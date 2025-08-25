@@ -10,9 +10,6 @@ export async function getAllQuotes(): Promise<unknown> {
   const currentDate = today.toISOString();
   const futureDate = tomorrow.toISOString();
 
-  console.log('currentDate', currentDate);
-  console.log('futureDate', futureDate);
-
   // Just checking quotes from Aberdeen P&R to Edinburgh
   const data = await fetch(
     `https://api.ember.to/v1/quotes/?origin=171&destination=42&departure_date_from=${currentDate}&departure_date_to=${futureDate}`,
@@ -26,7 +23,6 @@ export async function getAllQuotes(): Promise<unknown> {
     throw new Error('Failed to fetch quotes');
   }
   const { quotes } = await data.json();
-  console.log('quotes', quotes);
 
   return quotes;
 }

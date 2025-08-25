@@ -10,7 +10,5 @@ export async function getTripById(tripId: string): Promise<unknown> {
   }
   const trip = await data.json();
 
-  console.log('tripInfo', trip);
-
   return trip;
 }

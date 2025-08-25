@@ -41,7 +41,6 @@ export default function Route({ route }: RouteProps) {
   };
 
   const lastActualDeparture = findLastActualDeparture(route);
-  console.log('lastActualDeparture', lastActualDeparture);
 
   return (
     <ol className='stops'>
