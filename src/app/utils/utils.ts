@@ -50,10 +50,10 @@ export function formatTime(
   return formatted;
 }
 
-// extracting this here cause home page is just really busy
+// extracting this here cause home page is just really busy but I don't think it should live here as this is not a simple util like the above, Probably should be in a util.ts file in a new quotes folder.
+
 // It doesn't seem that the api returns the data ordered(or I may have missed something) so I'm doing it here.
 // Definitely had to google best way to do this because I got a bit lost at some point.
-// It doesn't look like the api is returning ordered quotes. What am i missing?
 
 export function compareLegsByScheduledDeparture(quoteA: Quote, quoteB: Quote): number {
   // Need to compare quotes to order them

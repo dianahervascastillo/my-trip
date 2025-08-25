@@ -100,6 +100,9 @@ There's many things I think I would have liked to add/change
 
 As you can tell, I don't tend to do TDD. I usually work on features or functions and it will be after I've written some functionality that I start then writing tests but this time at the end of the allocated time I had, I hadn't really tested anything, so apologies for this.
 
+- I would definitely unit test the utils functions.
+-
+
 -Testing recommended using e2e for async components (just because is next.js)
 
 ## Things that are important to deal with
