@@ -1,18 +1,15 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+First, run `npm install` to install all dependencies locally.
+Then you can run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+
+## What is this?
+
+This is a simple app that shows a list of available bus services between Aberdeen and Edinburgh, departing from today and until tomorrow and allows you to navigate to a trip page to see more info on all the stops in the trip and some vehicle data.
 
 ## Context
 
