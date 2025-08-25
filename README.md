@@ -11,6 +11,12 @@ npm run dev
 
 This is a simple app that shows a list of available bus services between Aberdeen and Edinburgh, departing from today and until tomorrow and allows you to navigate to a trip page to see more info on all the stops in the trip and some vehicle data.
 
+![screenshot](github/quotes-page.png)
+
+![screenshot](github/scheduled-trip-page.png)
+
+![screenshot](github/active-trip-page.png)
+
 ## Context
 
 Since I've had my family over for holidays and I was also on holidays, my available time was scarce so I had to limit working a couple of hours a day, sometimes three.
