@@ -79,6 +79,7 @@ I kept trying to imagine what other information I would want to know if I had be
 I decided to create a sort of timeline, but is just a simple list of stops and I decided to show the scheduled arrival time of all stops and if the trip happens to have started you'll be able to see a bus icon showing in between what stops the bus is.
 
 - At the moment the SSR takes a second to show the quotes list so maybe adding a loading screen or showing something preloaded would be nice, and same withe the links to the trip info pages as they seem to take a few miliseconds to actually load the page.
+- Bear in mind that I just added the list of quotes at the end of the test so it looks horrible, so just take it as just a list of trips to choose from.
 - Adding the time to the left of the stop circle, I think it would look better
 - Adding tooltips for info such as if boarding/drop-off is allowed, maybe how many mins late if service is running late...
 - Adding an alert component to show info if trip has been cancelled or delayed or any other issues that could affect the trip.

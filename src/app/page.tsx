@@ -19,25 +19,32 @@ export default async function Home() {
         <Header tripTitle='Aberdeen (Bridge of Don P&R) to Edinburgh (George Street - Stop GL)' />
         <main>
           <div className='container'>
-            <ol>
+            <ol className='quotes-list'>
               {sortedQuotes.map((quote, idx) => {
                 const leg = quote.legs[0];
-                if (!leg) return null;
 
-                const title = `${leg.origin.region_name} → ${leg.destination.region_name}`;
-                const time = leg.departure?.scheduled
-                  ? formatTime(
-                      leg.departure.scheduled as unknown as string,
-                      TIME_DATE_FORMATS.HOUR_DAY
-                    )
-                  : '—';
-                return (
-                  <li key={`${leg.trip_uid}-${idx}`}>
-                    <Link href={`/trip/${leg.trip_uid}`}>
-                      {title} — <strong>{time}</strong>
-                    </Link>
-                  </li>
-                );
+                if (leg) {
+                  const scheduledDeparture = formatTime(
+                    leg.departure?.scheduled,
+                    TIME_DATE_FORMATS.SHORT_TIME
+                  );
+                  const scheduledArrival = formatTime(
+                    leg.arrival?.scheduled,
+                    TIME_DATE_FORMATS.SHORT_TIME
+                  );
+
+                  return (
+                    <li className='quote' key={`${leg.trip_uid}-${idx}`}>
+                      <div className='quote__time'>
+                        <strong>{scheduledDeparture}</strong> — <strong>{scheduledArrival}</strong>
+                      </div>
+
+                      <Link href={`/trip/${leg.trip_uid}`}>View trip page</Link>
+                    </li>
+                  );
+                } else {
+                  return null;
+                }
               })}
             </ol>
           </div>
