@@ -28,7 +28,7 @@ Full disclosure that I will definitely forget things to talk about in this READM
 
 ## Tools
 
-I decided to give Cursor (code editor) a go for this test. I'm not a fan of vibe coding or chatgpt but I wanted to see how useful it would be to, for example, create typescrip interface and types based on the data returned on the endpoints. I love writing code but honestly, typing a big object was going to take me a while. I still had to double check everything but that was useful.
+I decided to give Cursor (code editor) a go for this test. I'm not a fan of vibe coding or chatgpt but I wanted to see how useful it would be to, for example, create typescript interface and types based on the data returned on the endpoints. I love writing code but honestly, typing a big object was going to take me a while. I still had to double check everything but that was useful.
 
 I checked Ember's APIs documentation and the current Ember site quite a lot: I wanted to double check the endpoint results, make sure I was passing the right payload, etc...
 
